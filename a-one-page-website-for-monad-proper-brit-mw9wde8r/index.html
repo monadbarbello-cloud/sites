@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monad – Proper British Gifts | Mugs, Hoodies, Jumpers &amp; Christmas Gifts</title>
+<meta name="description" content="Proper British gifts with bulldogs, Union Jacks, robins and lions. Mugs, hoodies, jumpers and Christmas gifts for the proudly British.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#c8102e;
+  --red-dark:#9d0c24;
+  --navy:#0b1f4b;
+  --navy-deep:#071433;
+  --white:#ffffff;
+  --cream:#faf6ee;
+  --ink:#1a2238;
+  --muted:#5b6479;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:'Playfair Display',Georgia,serif;line-height:1.1}
+a{text-decoration:none;color:inherit}
+.container{width:min(1120px,92%);margin-inline:auto}
+
+/* Top ribbon */
+.ribbon{background:var(--red);color:#fff;text-align:center;font-size:.85rem;font-weight:600;padding:.55rem 1rem;letter-spacing:.04em}
+
+/* Nav */
+header{background:var(--navy);position:sticky;top:0;z-index:50;box-shadow:0 2px 14px rgba(0,0,0,.25)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:.9rem 0}
+.logo{font-family:'Playfair Display',serif;font-weight:900;font-size:1.6rem;color:#fff;display:flex;align-items:center;gap:.6rem}
+.logo .crest{width:34px;height:34px;border-radius:50%;background:
+  linear-gradient(90deg,transparent 42%,#fff 42%,#fff 58%,transparent 58%),
+  linear-gradient(0deg,transparent 42%,#fff 42%,#fff 58%,transparent 58%),
+  var(--navy);
+  border:2px solid #fff;position:relative;box-shadow:0 0 0 2px var(--red)}
+.logo .crest::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent 46%,var(--red) 46%,var(--red) 54%,transparent 54%),
+  linear-gradient(0deg,transparent 46%,var(--red) 46%,var(--red) 54%,transparent 54%);border-radius:50%}
+.logo small{display:block;font-family:'Inter',sans-serif;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#c9d3ee;font-weight:600;margin-top:-2px}
+nav ul{display:flex;gap:1.6rem;list-style:none;align-items:center}
+nav a.link{color:#dfe6fb;font-weight:500;font-size:.95rem;transition:.2s}
+nav a.link:hover{color:#fff}
+.btn-sm{background:var(--red);color:#fff;padding:.6rem 1.2rem;border-radius:999px;font-weight:700;font-size:.9rem;transition:.2s}
+.btn-sm:hover{background:var(--red-dark)}
+
+/* Hero */
+.hero{position:relative;background:var(--navy);color:#fff;overflow:hidden;padding:5.5rem 0 6.5rem}
+.hero::before{content:"";position:absolute;inset:0;
+  background:
+   radial-gradient(circle at 85% 20%,rgba(200,16,46,.45),transparent 45%),
+   radial-gradient(circle at 10% 90%,rgba(255,255,255,.08),transparent 40%);
+}
+.hero .jack{position:absolute;right:-120px;top:-60px;width:620px;height:620px;opacity:.12;transform:rotate(-8deg)}
+.hero-grid{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center}
+.eyebrow{display:inline-block;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:.4rem 1rem;border-radius:999px;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin-bottom:1.4rem}
+.hero h1{font-size:clamp(2.6rem,6vw,4.8rem);font-weight:900;margin-bottom:1.3rem}
+.hero h1 em{color:#ff5a74;font-style:italic}
+.hero p.lead{font-size:1.2rem;color:#dbe3fb;max-width:34rem;margin-bottom:2rem}
+.cta-row{display:flex;flex-wrap:wrap;gap:1rem;align-items:center}
+.btn{display:inline-block;background:var(--red);color:#fff;font-weight:800;font-size:1.1rem;padding:1.1rem 2.4rem;border-radius:999px;box-shadow:0 8px 0 var(--red-dark),0 14px 30px rgba(0,0,0,.3);transition:.15s;letter-spacing:.02em}
+.btn:hover{transform:translateY(3px);box-shadow:0 5px 0 var(--red-dark),0 10px 20px rgba(0,0,0,.3)}
+.btn-ghost{color:#fff;font-weight:600;border-bottom:2px solid rgba(255,255,255,.4);padding-bottom:2px}
+.btn-ghost:hover{border-color:#fff}
+.hero-badges{display:flex;gap:1.5rem;margin-top:2.2rem;flex-wrap:wrap;font-size:.9rem;color:#c9d3ee}
+.hero-badges span::before{content:"✓ ";color:#ff8fa0;font-weight:800}
+
+.hero-card{background:#fff;color:var(--ink);border-radius:22px;padding:2rem;box-shadow:0 30px 60px rgba(0,0,0,.35);transform:rotate(2deg);position:relative}
+.hero-card::before{content:"";position:absolute;top:0;left:0;right:0;height:10px;border-radius:22px 22px 0 0;background:linear-gradient(90deg,var(--red) 0 33%,#fff 33% 66%,var(--navy) 66%);border-bottom:1px solid #eee}
+.emoji-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin:1rem 0 1.2rem}
+.emoji-tile{background:var(--cream);border-radius:16px;padding:1.2rem .8rem;text-align:center;font-size:2.6rem;transition:.2s}
+.emoji-tile:hover{transform:scale(1.06) rotate(-2deg)}
+.emoji-tile span{display:block;font-size:.78rem;font-weight:700;color:var(--navy);margin-top:.3rem;text-transform:uppercase;letter-spacing:.08em}
+.hero-card h3{font-size:1.4rem;color:var(--navy);margin-top:.6rem}
+.hero-card p{font-size:.92rem;color:var(--muted)}
+
+/* Marquee strip */
+.strip{background:var(--red);color:#fff;overflow:hidden;white-space:nowrap;padding:.9rem 0;font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1.15rem}
+.strip div{display:inline-block;animation:slide 28s linear infinite}
+.strip span{margin:0 1.6rem}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* Sections */
+section{padding:5.5rem 0}
+.section-head{text-align:center;max-width:42rem;margin:0 auto 3.2rem}
+.section-head .tag{color:var(--red);font-weight:700;letter-spacing:.18em;text-transform:uppercase;font-size:.8rem}
+.section-head h2{font-size:clamp(2rem,4.5vw,3.2rem);color:var(--navy);margin:.6rem 0 1rem;font-weight:900}
+.section-head p{color:var(--muted);font-size:1.08rem}
+
+/* Bestsellers */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem}
+.card{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 10px 30px rgba(11,31,75,.08);transition:.25s;display:flex;flex-direction:column;border:1px solid #efe9db}
+.card:hover{transform:translateY(-8px);box-shadow:0 22px 44px rgba(11,31,75,.16)}
+.card-top{height:210px;display:flex;align-items:center;justify-content:center;font-size:5.5rem;position:relative}
+.c1 .card-top{background:linear-gradient(135deg,var(--navy),#1a3a85)}
+.c2 .card-top{background:linear-gradient(135deg,var(--red),#e8334f)}
+.c3 .card-top{background:linear-gradient(135deg,#143a2a,#1f6b47)}
+.card-top .pill{position:absolute;top:14px;left:14px;background:#fff;color:var(--navy);font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .8rem;border-radius:999px}
+.card-body{padding:1.7rem;display:flex;flex-direction:column;flex:1}
+.card h3{font-size:1.55rem;color:var(--navy);margin-bottom:.5rem}
+.card p{color:var(--muted);font-size:.98rem;margin-bottom:1.1rem}
+.card ul{list-style:none;margin-bottom:1.5rem;font-size:.92rem}
+.card li{padding:.3rem 0;border-bottom:1px dashed #e6dfce;display:flex;gap:.6rem}
+.card li::before{content:"★";color:var(--red)}
+.card a.more{margin-top:auto;font-weight:700;color:var(--red);display:inline-flex;gap:.4rem;align-items:center}
+.card a.more:hover{gap:.8rem}
+
+/* Why */
+.why{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.why .section-head h2{color:#fff}
+.why .section-head p{color:#c9d3ee}
+.why .section-head .tag{color:#ff8fa0}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.why-item{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:1.8rem 1.4rem;transition:.25s}
+.why-item:hover{background:rgba(255,255,255,.1);transform:translateY(-5px)}
+.why-item .ico{font-size:2.2rem;margin-bottom:.8rem}
+.why-item h3{font-size:1.25rem;margin-bottom:.5rem}
+.why-item p{color:#c9d3ee;font-size:.94rem}
+
+/* Quote */
+.quote{background:#fff;text-align:center;padding:4.5rem 0}
+.quote blockquote{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:clamp(1.5rem,3.2vw,2.3rem);color:var(--navy);max-width:48rem;margin:0 auto 1rem}
+.quote cite{color:var(--muted);font-style:normal;font-size:.95rem}
+.stars{color:var(--red);letter-spacing:.2em;font-size:1.3rem;margin-bottom:1rem}
+
+/* Final CTA */
+.final{background:linear-gradient(135deg,var(--red),var(--red-dark));color:#fff;text-align:center;position:relative;overflow:hidden}
+.final::before{content:"";position:absolute;inset:0;background:
+  repeating-linear-gradient(45deg,rgba(255,255,255,.04) 0 20px,transparent 20px 40px)}
+.final .container{position:relative}
+.final h2{font-size:clamp(2.2rem,5.5vw,4rem);font-weight:900;margin-bottom:1rem}
+.final p{font-size:1.2rem;max-width:36rem;margin:0 auto 2.4rem;color:#ffe3e8}
+.btn-big{display:inline-block;background:#fff;color:var(--navy);font-weight:900;font-size:clamp(1.3rem,3vw,1.9rem);padding:1.5rem 4rem;border-radius:999px;box-shadow:0 10px 0 var(--navy),0 20px 40px rgba(0,0,0,.35);transition:.15s;letter-spacing:.03em;text-transform:uppercase}
+.btn-big:hover{transform:translateY(4px);box-shadow:0 6px 0 var(--navy),0 12px 24px rgba(0,0,0,.35);background:var(--cream)}
+.final small{display:block;margin-top:2rem;color:#ffd0d8;font-size:.9rem}
+
+/* Footer */
+footer{background:var(--navy-deep);color:#a9b4d4;text-align:center;padding:2.6rem 0;font-size:.9rem}
+footer .logo{justify-content:center;margin-bottom:.8rem}
+footer a{color:#fff;font-weight:600;border-bottom:1px solid rgba(255,255,255,.3)}
+
+/* Responsive */
+@media(max-width:960px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-card{transform:none;max-width:440px}
+  .cards{grid-template-columns:1fr;max-width:480px;margin-inline:auto}
+  .why-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  nav a.link{display:none}
+  section{padding:4rem 0}
+  .hero{padding:3.5rem 0 4.5rem}
+  .why-grid{grid-template-columns:1fr}
+  .btn-big{padding:1.3rem 2.2rem;width:100%}
+  .btn{width:100%;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<div class="ribbon">🇬🇧 Proudly British-themed &nbsp;•&nbsp; Christmas gifts now in stock &nbsp;•&nbsp; Kettle on, shop open</div>
+
+<header>
+  <div class="container nav">
+    <a href="#top" class="logo" id="top">
+      <span class="crest" aria-hidden="true"></span>
+      <span>Monad<small>Proper British Gifts</small></span>
+    </a>
+    <nav>
+      <ul>
+        <li><a class="link" href="#bestsellers">Bestsellers</a></li>
+        <li><a class="link" href="#why">Why Monad</a></li>
+        <li><a class="btn-sm" href="https://9wniuw-rt.myshopify.com" target="_blank" rel="noopener">Shop now</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<div class="hero">
+  <svg class="jack" viewBox="0 0 60 30" aria-hidden="true">
+    <clipPath id="t"><path d="M30,15 h30 v15 z v-30 h-30 z h-30 v-15 z v30 h30 z"/></clipPath>
+    <path d="M0,0 v30 h60 v-30 z" fill="#fff"/>
+    <path d="M0,0 L60,30 M60,0 L0,30" stroke="#c8102e" stroke-width="4" clip-path="url(#t)"/>
+    <path d="M30,0 v30 M0,15 h60" stroke="#c8102e" stroke-width="6"/>
+  </svg>
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow">Est. in a proper cuppa</span>
+      <h1>Gifts so British, they <em>queue</em> politely.</h1>
+      <p class="lead">Mugs, hoodies, jumpers and Christmas gifts starring bulldogs, Union Jacks, robins and lions. Made for people who love their country, their tea, and a good bit of banter.</p>
+      <div class="cta-row">
+        <a class="btn" href="https://9wniuw-rt.myshopify.com" target="_blank" rel="noopener">Shop now →</a>
+        <a class="btn-ghost" href="#bestsellers">See the bestsellers</a>
+      </div>
+      <div class="hero-badges">
+        <span>Bold British designs</span>
+        <span>Perfect for gifting</span>
+        <span>Tea-approved</span>
+      </div>
+    </div>
+    <aside class="hero-card" aria-label="Featured British themes">
+      <div class="emoji-grid">
+        <div class="emoji-tile">🐶<span>Bulldogs</span></div>
+        <div class="emoji-tile">🇬🇧<span>Union Jack</span></div>
+        <div class="emoji-tile">🐦<span>Robins</span></div>
+        <div class="emoji-tile">🦁<span>Lions</span></div>
+      </div>
+      <h3>Four icons. One proud island.</h3>
+      <p>Pick your emblem, pick your item, and wear (or sip) your patriotism with a wink.</p>
+    </aside>
+  </div>
+</div>
+
+<div class="strip" aria-hidden="true">
+  <div>
+    <span>☕ Keep calm &amp; carry on</span><span>★</span><span>🐶 Bulldog spirit</span><span>★</span><span>🎄 Robins for Christmas</span><span>★</span><span>🦁 Lion-hearted</span><span>★</span><span>🇬🇧 Union Jack pride</span><span>★</span>
+    <span>☕ Keep calm &amp; carry on</span><span>★</span><span>🐶 Bulldog spirit</span><span>★</span><span>🎄 Robins for Christmas</span><span>★</span><span>🦁 Lion-hearted</span><span>★</span><span>🇬🇧 Union Jack pride</span><span>★</span>
+  </div>
+</div>
+
+<!-- BESTSELLERS -->
+<section id="bestsellers">
+  <div class="container">
+    <div class="section-head">
+      <span class="tag">Customer favourites</span>
+      <h2>The Bestsellers</h2>
+      <p>The ones that fly off the shelves faster than a biscuit at a tea break.</p>
+    </div>
+    <div class="cards">
+      <article class="card c1">
+        <div class="card-top"><span class="pill">Top pick</span>☕</div>
+        <div class="card-body">
+          <h3>British Mugs</h3>
+          <p>Because tea simply tastes better when a bulldog is judging you from the side of the cup.</p>
+          <ul>
+            <li>Bulldog, Union Jack, robin &amp; lion designs</li>
+            <li>Perfect for brews, builders' or Earl Grey</li>
+            <li>The ideal "just because" gift</li>
+          </ul>
+          <a class="more" href="https://9wniuw-rt.myshopify.com" target="_blank" rel="noopener">Browse mugs <span>→</span></a>
+        </div>
+      </article>
+      <article class="card c2">
+        <div class="card-top"><span class="pill">Cosy classic</span>🧥</div>
+        <div class="card-body">
+          <h3>Hoodies &amp; Jumpers</h3>
+          <p>Wrap yourself in a bit of national pride. Warm enough for a drizzly Tuesday, smart enough for the pub.</p>
+          <ul>
+            <li>Proud Union Jack and lion styles</li>
+            <li>Cosy for those chilly walks</li>
+            <li>Made to be worn on repeat</li>
+          </ul>
+          <a class="more" href="https://9wniuw-rt.myshopify.com" target="_blank" rel="noopener">Browse hoodies <span>→</span></a>
+        </div>
+      </article>
+      <article class="card c3">
+        <div class="card-top"><span class="pill">Festive fave</span>🎄</div>
+        <div class="card-body">
+          <h3>Christmas Gifts</h3>
+          <p>Robins, bulldogs in Santa hats and festive cheer. Sorted for everyone from Nan to the neighbour.</p>
+          <ul>
+            <li>Robin-themed Christmas treats</li>
+            <li>Stocking fillers and big gifts alike</li>
+            <li>Secret Santa, solved</li>
+          </ul>
+          <a class="more" href="https://9wniuw-rt.myshopify.com" target="_blank" rel="noopener">Browse Christmas <span>→</span></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why" id="why">
+  <div class="container">
+    <div class="section-head">
+      <span class="tag">Why Monad</span>
+      <h2>Why buy from us?</h2>
+      <p>We're a small British-minded shop with big opinions about tea, tradition and good gifts.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-item"><div class="ico">🇬🇧</div><h3>Proudly British</h3><p>Every design celebrates the bulldogs, lions, robins and flags that make Britain, well, Britain.</p></div>
+      <div class="why-item"><div class="ico">😏</div><h3>Cheeky, not cheesy</h3><p>Gifts with a twinkle in the eye. Humour and heritage, in exactly the right measure.</p></div>
+      <div class="why-item"><div class="ico">🎁</div><h3>Gift-ready finds</h3><p>Birthdays, Christmas, leaving dos or a treat for yourself. There's something for every occasion.</p></div>
+      <div class="why-item"><div class="ico">🛒</div><h3>Easy, secure shopping</h3><p>A simple, trusted checkout so you can go from browsing to brewing in minutes.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<div class="quote">
+  <div class="container">
+    <div class="stars" aria-hidden="true">★ ★ ★ ★ ★</div>
+    <blockquote>“Finally, a gift shop that gets the British sense of humour. Tea tastes better already.”</blockquote>
+    <cite>— The spirit of every happy Monad customer</cite>
+  </div>
+</div>
+
+<!-- FINAL CTA -->
+<section class="final">
+  <div class="container">
+    <h2>Right then. Shall we?</h2>
+    <p>Put the kettle on, have a browse, and find something properly British for you or someone you love.</p>
+    <a class="btn-big" href="https://9wniuw-rt.myshopify.com" target="_blank" rel="noopener">Shop now →</a>
+    <small>God save the gift list. 👑</small>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="logo"><span class="crest" aria-hidden="true"></span><span>Monad</span></div>
+    <p>Monad – Proper British Gifts &nbsp;|&nbsp; <a href="https://9wniuw-rt.myshopify.com" target="_blank" rel="noopener">Visit the shop</a></p>
+    <p style="margin-top:.6rem">© <span id="yr"></span> Monad. Made with pride, and a good cuppa.</p>
+  </div>
+</footer>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
