@@ -7,7 +7,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 ap = argparse.ArgumentParser()
 ap.add_argument("--video", required=True); ap.add_argument("--out", required=True)
 ap.add_argument("--strap", default="Proper British. Properly Monad.")
-ap.add_argument("--sub", default="Gifts with a stiff upper lip")
+ap.add_argument("--sub", default="Gifts with a stiff upper lip"); ap.add_argument("--link", default="9wniuw-rt.myshopify.com")
 a = ap.parse_args()
 W, H, FPS, CARD = 1080, 1920, 30, 3.0
 NAVY = (11, 31, 68); RED = (200, 16, 46); GOLD = (184, 137, 43); WHITE = (255, 255, 255)
@@ -69,6 +69,9 @@ def card(t):
         fl = font(SANS, 48); txt = "Tap the link in bio  →"; lw = d.textlength(txt, font=fl)
         d.rounded_rectangle([(W - lw)/2 - 40, 1640, (W + lw)/2 + 40, 1740], radius=50, fill=RED)
         d.text(((W - lw)/2, 1663), txt, font=fl, fill=WHITE)
+        lk = "Shop: " + a.link.replace("https://", "").replace("www.", ""); fk = font(SANS, 32)
+        while d.textlength(lk, font=fk) > W - 60 and fk.size > 18: fk = font(SANS, fk.size - 2)
+        d.text(((W - d.textlength(lk, font=fk))/2, 1775), lk, font=fk, fill=(200, 205, 220))
     return im
 
 endc = os.path.join(tmp, "end.mp4")
