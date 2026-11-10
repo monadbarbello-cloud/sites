@@ -9,8 +9,10 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 ap = argparse.ArgumentParser()
 ap.add_argument("--images", required=True); ap.add_argument("--headline", required=True)
 ap.add_argument("--out", required=True); ap.add_argument("--hook", default="WAIT FOR IT…")
+ap.add_argument("--dur", type=float, default=10.0); ap.add_argument("--strap", default="Proper British. Properly Monad.")
 a = ap.parse_args()
-W, H, FPS, DUR = 1080, 1920, 30, 10.0
+W, H, FPS, DUR = 1080, 1920, 30, a.dur
+TS = 10.0 / DUR   # timeline is designed for 10s; longer clips play it in dramatic slow motion
 N = int(FPS * DUR)
 NAVY = (11, 31, 68); RED = (200, 16, 46); GOLD = (184, 137, 43); WHITE = (255, 255, 255)
 random.seed(3); rng = np.random.default_rng(3)
@@ -96,7 +98,7 @@ def wrap(txt, f, maxw, d):
     return out + [cur]
 
 # ---- audio ----
-sr = 44100; tt = np.arange(int(sr*DUR)) / sr; au = np.zeros_like(tt); nz = rng.standard_normal(len(tt))
+sr = 44100; tt = np.arange(int(sr*DUR)) / sr * TS; au = np.zeros_like(tt); nz = rng.standard_normal(len(tt))
 def env(t0, at, dc): return np.where(tt >= t0, np.exp(-(tt - t0) / dc), 0) * np.clip((tt - t0) / at, 0, 1)
 au += 0.30 * nz * (np.clip((tt - 0.1) / 1.1, 0, 1) ** 3) * (tt < 1.2)             # riser
 au += 0.08 * np.sin(2*np.pi*(40 + 30*tt)*tt) * (tt < 1.2)
@@ -112,7 +114,7 @@ pr = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "
                        "-c:v", "libx264", "-preset", "veryfast", "-crf", "19", "-pix_fmt", "yuv420p", a.out + ".v.mp4"], stdin=subprocess.PIPE)
 CY = H * 0.50
 for fr in range(N):
-    t = fr / FPS
+    t = fr / FPS * TS
     light = sg(t, 1.2, 1.5) * (0.75 + 0.25 * (1 - sg(t, 6.5, 8.0)))
     frame = getbg(max(light, 0.08 * sg(t, 0, 1.2)))
     d = ImageDraw.Draw(frame, "RGBA")
@@ -196,7 +198,7 @@ for fr in range(N):
             d.ellipse([rx-rr+22, ry-rr+22, rx+rr-22, ry+rr-22], outline=WHITE, width=3)
             fm = font(SERIF, 90); d.text((rx - d.textlength("M", font=fm)/2, ry - 60), "M", font=fm, fill=WHITE)
             d.text((300, top + 95), "MONAD", font=font(SERIF, 76), fill=WHITE)
-            d.text((302, top + 190), "PROPER BRITISH GIFTS", font=font(SANS, 34), fill=GOLD)
+            d.text((302, top + 190), a.strap, font=font(SANS, 34), fill=GOLD)
             d.text((302, top + 255), "Tap the link in bio  →", font=font(SANS, 42), fill=WHITE)
     # flash
     fl = 1 - sg(t, 1.2, 1.55)
