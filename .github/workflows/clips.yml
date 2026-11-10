@@ -11,6 +11,7 @@ concurrency:
 jobs:
   render:
     runs-on: ubuntu-latest
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -28,10 +29,11 @@ jobs:
             [ -e "$f" ] || continue
             id=$(basename "$f" .json)
             [ -f "clips/out/$id.mp4" ] && continue
+            link="$(jq -r '.link // "9wniuw-rt.myshopify.com"' "$f")"
             if jq -e .video "$f" >/dev/null; then
-              python clipmaker/brand.py --video "$(jq -r .video "$f")" --strap "$(jq -r '.strap // "Proper British. Properly Monad."' "$f")" --out "clips/out/$id.mp4" || echo "failed $id"
+              python clipmaker/brand.py --video "$(jq -r .video "$f")" --strap "$(jq -r '.strap // "Proper British. Properly Monad."' "$f")" --link "$link" --out "clips/out/$id.mp4" || echo "failed $id"
             else
-              python clipmaker/make_clip.py --images "$(jq -r .images "$f")" --headline "$(jq -r .headline "$f")" --hook "$(jq -r '.hook // "WAIT FOR IT…"' "$f")" --dur "$(jq -r '.dur // 10' "$f")" --out "clips/out/$id.mp4" || echo "failed $id"
+              python clipmaker/make_clip.py --images "$(jq -r .images "$f")" --headline "$(jq -r .headline "$f")" --hook "$(jq -r '.hook // "WAIT FOR IT…"' "$f")" --dur "$(jq -r '.dur // 10' "$f")" --link "$link" --out "clips/out/$id.mp4" || echo "failed $id"
               rm -f clips/out/$id.mp4.wav clips/out/$id.mp4.v.mp4
             fi
           done
