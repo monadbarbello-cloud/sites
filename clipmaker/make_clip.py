@@ -46,6 +46,10 @@ def cutout(im):
     p = im.convert("RGBA"); p.putalpha(al)
     bb = p.getbbox(); margin = min(bb[0], bb[1], w0 - bb[2], h0 - bb[3])
     fill = (bb[2]-bb[0])*(bb[3]-bb[1]) / (w0*h0)
+    crop = np.asarray(al.crop(bb)); solid = (crop > 128).mean()
+    if solid < 0.72:   # white product on white background: keep the photo as a premium card instead of cutting it out
+        card = im.convert('RGBA'); m = Image.new('L', im.size, 0); ImageDraw.Draw(m).rounded_rectangle([0, 0, w0-1, h0-1], radius=int(w0*0.06), fill=255); card.putalpha(m)
+        return card, 50, 0.5
     return p.crop(bb), margin, fill
 
 best = None
