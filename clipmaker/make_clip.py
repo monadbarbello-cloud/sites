@@ -49,10 +49,10 @@ def cutout(im):
     return p.crop(bb), margin, fill
 
 best = None
-for s in a.images.split(","):
+for idx, s in enumerate(a.images.split(",")):
     try:
         p, m, f = cutout(load(s.strip()))
-        score = (m > 6) * 10 + f       # fully in frame first, then biggest
+        score = (m > 6) * 10 - idx * 0.8 + f   # fully in frame first, prefer front views (listed first), then biggest
         if best is None or score > best[0]: best = (score, p)
     except Exception as e: print("skip", s, e)
 prod = best[1]
