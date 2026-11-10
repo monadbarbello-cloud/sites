@@ -31,7 +31,7 @@ jobs:
             if jq -e .video "$f" >/dev/null; then
               python clipmaker/brand.py --video "$(jq -r .video "$f")" --strap "$(jq -r '.strap // "Proper British. Properly Monad."' "$f")" --out "clips/out/$id.mp4" || echo "failed $id"
             else
-              python clipmaker/make_clip.py --images "$(jq -r .images "$f")" --headline "$(jq -r .headline "$f")" --hook "$(jq -r '.hook // "WAIT FOR IT…"' "$f")" --out "clips/out/$id.mp4" || echo "failed $id"
+              python clipmaker/make_clip.py --images "$(jq -r .images "$f")" --headline "$(jq -r .headline "$f")" --hook "$(jq -r '.hook // "WAIT FOR IT…"' "$f")" --dur "$(jq -r '.dur // 10' "$f")" --out "clips/out/$id.mp4" || echo "failed $id"
               rm -f clips/out/$id.mp4.wav clips/out/$id.mp4.v.mp4
             fi
           done
