@@ -9,7 +9,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 ap = argparse.ArgumentParser()
 ap.add_argument("--images", required=True); ap.add_argument("--headline", required=True)
 ap.add_argument("--out", required=True); ap.add_argument("--hook", default="WAIT FOR IT…")
-ap.add_argument("--dur", type=float, default=10.0); ap.add_argument("--strap", default="Proper British. Properly Monad.")
+ap.add_argument("--dur", type=float, default=10.0); ap.add_argument("--link", default="9wniuw-rt.myshopify.com"); ap.add_argument("--strap", default="Proper British. Properly Monad.")
 a = ap.parse_args()
 W, H, FPS, DUR = 1080, 1920, 30, a.dur
 TS = 10.0 / DUR   # timeline is designed for 10s; longer clips play it in dramatic slow motion
@@ -200,6 +200,9 @@ for fr in range(N):
             d.text((300, top + 95), "MONAD", font=font(SERIF, 76), fill=WHITE)
             d.text((302, top + 190), a.strap, font=font(SANS, 34), fill=GOLD)
             d.text((302, top + 255), "Tap the link in bio  →", font=font(SANS, 42), fill=WHITE)
+            lk = "Shop: " + a.link.replace("https://", "").replace("www.", ""); fl = font(SANS, 30)
+            while d.textlength(lk, font=fl) > W - 60 and fl.size > 18: fl = font(SANS, fl.size - 2)
+            d.text(((W - d.textlength(lk, font=fl)) / 2, top + 335), lk, font=fl, fill=(200, 205, 220))
     # flash
     fl = 1 - sg(t, 1.2, 1.55)
     if 1.2 <= t and fl > 0: frame = Image.blend(frame, Image.new("RGB", (W, H), (255, 246, 225)), 0.9 * fl)
