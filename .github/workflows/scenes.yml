@@ -1,0 +1,44 @@
+name: Monad scenes
+on:
+  push:
+    paths: ['clips/scenes/**']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: clips
+  cancel-in-progress: false
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg fonts-dejavu-core jq
+      - run: pip install -q pillow numpy
+      - name: Render scenes ordered by Barbello
+        run: |
+          git pull -q
+          mkdir -p clips/out
+          for j in clips/scenes/*.json; do
+            id=$(basename "$j" .json)
+            [ -f "clips/out/$id.mp4" ] && continue
+            link=$(jq -r '.link // "9wniuw-rt.myshopify.com"' "$j")
+            if [ "$(jq -r '.scene // "bulldogs"' "$j")" = "britannia" ]; then
+              python clipmaker/epic.py --out /tmp/raw.mp4 --wav /tmp/a.wav
+            else
+              python clipmaker/clay.py --out /tmp/raw.mp4 --wav /tmp/a.wav --lines "$(jq -c '.lines // {}' "$j")"
+            fi
+            python clipmaker/brand.py --video /tmp/raw.mp4 --out /tmp/b.mp4 --strap "$(jq -r '.strap // "Proper British. Properly Monad."' "$j")" --link "$link"
+            ffmpeg -loglevel error -y -i /tmp/b.mp4 -i /tmp/a.wav -map 0:v -map 1:a -c:v copy -c:a aac -ac 2 -b:a 192k -shortest -movflags +faststart "clips/out/$id.mp4"
+          done
+      - name: Save
+        run: |
+          git config user.name "Monad clips bot"; git config user.email "clips@users.noreply.github.com"
+          git add clips/out
+          git diff --cached --quiet && exit 0
+          git commit -qm "Render scenes"
+          (git pull --rebase -X theirs || (git rebase --abort; git pull --no-rebase -X ours)) && git push
